@@ -27,6 +27,8 @@
 let mapleader = ','
 let g:mapleader = ','
 
+set rtp+=~/.fzf
+
 " 开启语法高亮
 syntax on
 
@@ -48,7 +50,7 @@ filetype plugin indent on
 
 
 " history存储容量
-set history=2000
+set history=3000
 
 " 检测文件类型
 filetype on
@@ -88,7 +90,7 @@ set noswapfile
   " " set undodir=/tmp/vimundo/
 " endif
 
-set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
+set wildignore=*.swp,*.bak,*.pyc,*.class,.svn.git
 
 " 突出显示当前列
 set cursorcolumn
@@ -110,8 +112,8 @@ set mouse-=a
 
 
 " 修复ctrl+m 多光标操作选择的bug，但是改变了ctrl+v进行字符选中时将包含光标下的字符
-set selection=inclusive
-set selectmode=mouse,key
+"set selection=inclusive
+"set selectmode=mouse,key
 
 " change the terminal's title
 set title
@@ -182,6 +184,7 @@ set foldenable
 " syntax    使用语法定义折叠
 " diff      对没有更改的文本进行折叠
 " marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
+" set fdm
 set foldmethod=indent
 set foldlevel=99
 " 代码折叠自定义快捷键 <leader>zz
@@ -206,11 +209,11 @@ set autoindent
 
 " tab相关变更
 " 设置Tab键的宽度        [等同的空格个数]
-set tabstop=4
+set tabstop=2
 " 每一次缩进对应的空格数
-set shiftwidth=4
+set shiftwidth=2
 " 按退格键时可以一次删掉 4 个空格
-set softtabstop=4
+set softtabstop=2
 " insert tabs on the start of a line according to shiftwidth, not tabstop 按退格键时可以一次删掉 4 个空格
 set smarttab
 " 将Tab自动转化成空格[需要输入真正的Tab键时，使用 Ctrl+V + Tab]
@@ -294,7 +297,7 @@ set wildignore=*.o,*~,*.pyc,*.class
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " 回车即选中当前项
-inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+"inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 
 " In the quickfix window, <CR> is used to jump to the error under the
 " cursor, so undefine the mapping there.
@@ -359,7 +362,7 @@ nnoremap <F2> :call HideNumber()<CR>
 " F3 显示可打印字符开关
 nnoremap <F3> :set list! list?<CR>
 " F4 换行开关
-nnoremap <F4> :set wrap! wrap?<CR>
+" nnoremap <F4> :set wrap! wrap?<CR>
 
 " F6 语法开关，关闭语法可以加快大文件的展示
 nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
@@ -408,8 +411,8 @@ nnoremap <silent> <Leader>z :ZoomToggle<CR>
 
 
 " Go to home and end using capitalized directions
-noremap H ^
-noremap L $
+"noremap H ^
+"noremap L $
 
 
 " Map ; to : and save a million keystrokes 用于快速进入命令行
@@ -425,7 +428,7 @@ cnoremap <C-e> <End>
 
 " 搜索相关
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
+" map <space> /
 " 进入搜索Use sane regexes"
 nnoremap / /\v
 vnoremap / /\v
@@ -441,11 +444,11 @@ nnoremap <silent> g* g*zz
 noremap <silent><leader>/ :nohls<CR>
 
 " switch # *
-nnoremap # *
-nnoremap * #
+"nnoremap # *
+"nnoremap * #
 
 " for # indent, python文件中输入新行时#号注释不切回行首
-autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
+" autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
 
 
 " tab/buffer相关
@@ -471,7 +474,8 @@ map <leader>tk :tabprev<cr>
 map <leader>tn :tabnext<cr>
 map <leader>tp :tabprev<cr>
 
-map <leader>te :tabedit<cr>
+"map <leader>te :tabedit<cr>
+map <leader>te :tabedit<c-r>=expand("%:p:h")<cr>/
 map <leader>td :tabclose<cr>
 map <leader>tm :tabm<cr>
 
@@ -508,7 +512,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " y$ -> Y Make Y behave like other capitals
-map Y y$
+" map Y y$
 
 " 复制选中区到系统剪切板中
 vnoremap <leader>y "+y
@@ -522,13 +526,13 @@ vnoremap <leader>y "+y
 map <Leader>sa ggVG
 
 " select block
-nnoremap <leader>v V`}
+"nnoremap <leader>v V`}
 
 " w!! to sudo & write a file
 cmap w!! w !sudo tee >/dev/null %
 
 " kj 替换 Esc
-inoremap kj <Esc>
+"inoremap kj <Esc>
 
 " 滚动Speed up scrolling of the viewport slightly
 nnoremap <C-e> 2<C-e>
@@ -643,32 +647,37 @@ endif
 "==========================================
 
 " Set extra options when running in GUI mode
-if has("gui_running")
-    set guifont=Monaco:h14
-    if has("gui_gtk2")   "GTK2
-        set guifont=Monaco\ 12,Monospace\ 12
-    endif
-    set guioptions-=T
-    set guioptions+=e
-    set guioptions-=r
-    set guioptions-=L
-    set guitablabel=%M\ %t
-    set showtabline=1
-    set linespace=2
-    set noimd
-    set t_Co=256
-endif
+"if has("gui_running")
+"    set guifont=Monaco:h14
+"    if has("gui_gtk2")   "GTK2
+"        set guifont=Monaco\ 12,Monospace\ 12
+"    endif
+"    set guioptions-=T
+"    set guioptions+=e
+"    set guioptions-=r
+"    set guioptions-=L
+"    set guitablabel=%M\ %t
+"    set showtabline=1
+"    set linespace=2
+"    set noimd
+"    set t_Co=256
+"endif
 
 
 
 " theme主题
-set background=dark
-set t_Co=256
+"set background=dark
+"set t_Co=256
 
-colorscheme solarized
-" colorscheme molokai
-" colorscheme desert
+"colorscheme solarized
+"colorscheme molokai
+"let g:molokai_original = 1
+"let g:rehash256 = 1
+"colorscheme BusyBee
+"colorscheme desert
+"colorscheme jellybeans
 
+colorscheme gruvbox
 
 " 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
@@ -684,6 +693,46 @@ highlight clear SpellRare
 highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
+
+iabbrev l console.log
+iabbrev ir import React from 'react';
+iabbrev irnp import RNPlus from 'rnplus';
+iabbrev ii import Icon from 'icon';
+iabbrev ecp export default class extends PView {};
+iabbrev ecc export default class extends Component {};
+iabbrev vw <View></View>
+iabbrev to <TouchableOpacity></TouchableOpacity>
+
+nnoremap <leader>f :FlyGrep<cr>
+map <leader>s :Ack!<space>
+"nmap <leader>ss :Ack!<space>-i<space>
+if executable('ag')
+  let g:ackprg = 'ag --nogroup --nocolor --column'
+endif
+"if executable('rg')
+"  let g:ackprg = 'rg --vimgrep'
+"endif
+"高亮搜索关键词
+let g:ackhighlight = 1
+"修改快速预览窗口高度为15
+"let g:ack_qhandler = "botright copen 15"
+"在QuickFix窗口使用快捷键以后，自动关闭QuickFix窗口
+"let g:ack_autoclose = 1
+"使用ack的空白搜索，即不添加任何参数时对光标下的单词进行搜索，默认值为1，表示开启，置0以后使用空白搜索将返回错误信息
+"let g:ack_use_cword_for_empty_search = 1
+"部分功能受限，但对于大项目搜索速度较慢时可以尝试开启
+"let g:ack_use_dispatch = 1
+
+":map <F5> :! g++ % && ./a.out <CR>
+":imap <F5> <c-o><F5>
+
+nnoremap yf :let @f=expand("%:t")<CR>
+nnoremap yp :let @p=expand("%:p")<CR>
+nnoremap <leader>g :<C-u>call gitblame#echo()<CR>
+
+
+
+
 
 
 

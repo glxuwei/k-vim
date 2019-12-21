@@ -32,16 +32,30 @@ call plug#begin('~/.vim/bundle')
 " syntastic
 Plug 'scrooloose/syntastic'
 
+Plug 'zivyangll/git-blame.vim'
+
+Plug 'rafi/awesome-vim-colorschemes'
+
+Plug 'wsdjeg/FlyGrep.vim'
+
+Plug 'mileszs/ack.vim'
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
+Plug '~/.fzf'
+
+"emmet
+Plug 'https://github.com/mattn/emmet-vim.git'
+let g:user_emmet_expandabbr_key = '<leader><leader>'
+
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
 " Snippets are separated from the engine. Add this if you want them:
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " auto complete
 " 代码自动补全
 " 迄今为止用到的最好的自动VIM自动补全插件
 " 重启 :YcmRestartServer
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
 " 自动补全html/xml标签
@@ -50,6 +64,9 @@ Plug 'docunext/closetag.vim', { 'for': ['html', 'xml'] }
 " quick edit
 " 快速注释
 Plug 'scrooloose/nerdcommenter'
+
+" vim es6
+Plug 'isRuslan/vim-es6'
 
 
 " 快速加入修改环绕字符
@@ -87,6 +104,10 @@ Plug 'terryma/vim-expand-region'
 " 多光标选中编辑
 " multiplecursors
 Plug 'terryma/vim-multiple-cursors'
+" ctrl+m 选中一个
+" ctrl+p 放弃一个, 回到上一个
+" ctrl+x 跳过当前选中, 选中下一个
+" esc 退出
 
 " quick locate file or function
 " 文件搜索
@@ -136,6 +157,10 @@ Plug 'altercation/vim-colors-solarized'
 " 主题 molokai
 Plug 'tomasr/molokai'
 
+Plug 'nanotech/jellybeans.vim'
+
+" Plug 'GlennNorton/adaryn.vim'
+
 
 " nav
 " nerdtree nerdtreetabs
@@ -154,6 +179,72 @@ Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-entire'
 " 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
 Plug 'kana/vim-textobj-indent'
+
+Plug 'leafgarland/typescript-vim'
+
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+
+"limelight
+"<Leader>d触发limelight功能
+"g:goyo_margin_top (default: 4)
+"g:goyo_margin_bottom (default: 4)
+"g:goyo_linenr (default: 0)
+"g:goyo_callbacks ([before_funcref, after_funcref])
+
+"function! s:goyo_enter()
+"  let b:quitting = 0
+"  let b:quitting_bang = 0
+"  autocmd QuitPre <buffer> let b:quitting = 1
+"  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+"endfunction
+"
+"function! s:goyo_leave()
+"  " Quit Vim if this is the only remaining buffer
+"  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+"    if b:quitting_bang
+"      qa!
+"    else
+"      qa
+"    endif
+"  endif
+"endfunction
+"
+"autocmd! User GoyoEnter call <SID>goyo_enter()
+"autocmd! User GoyoLeave call <SID>goyo_leave()
+
+nmap <Leader>d :Goyo<CR>
+xmap <Leader>d :Goyo<CR>
+
+"进入goyo模式后自动触发limelight,退出后则关闭
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+
+" Default: 0.5
+let g:limelight_default_coefficient = 0.7
+
+" Number of preceding/following paragraphs to include (default: 0)
+let g:limelight_paragraph_span = 1
+
+" Beginning/end of paragraph
+"   When there's no empty line between the paragraphs
+"   and each paragraph starts with indentation
+let g:limelight_bop = '^\s'
+let g:limelight_eop = '\ze\n^\s'
+
+" Highlighting priority (default: 10)
+"   Set it to -1 not to overrule hlsearch
+let g:limelight_priority = -1
+
+
 
 if count(g:bundle_groups, 'tmux')
     " tmux
@@ -327,7 +418,7 @@ call plug#end()
             Errors
         endif
     endfunction
-    nnoremap <Leader>s :call ToggleErrors()<cr>
+    nnoremap <Leader>ss :call ToggleErrors()<cr>
 
     " ,en ,ep to jump between errors
     function! <SID>LocationPrevious()
@@ -361,51 +452,6 @@ call plug#end()
     " 关闭syntastic语法检查, 鼠标复制代码时用到, 防止把错误标志给复制了
     nnoremap <silent> <Leader>ec :SyntasticToggleMode<CR>
 " }}}
-
-
-" ################### 自动补全 ###################
-
-" YouCompleteMe {{{
-    "youcompleteme  默认tab  s-tab 和自动补全冲突
-    "let g:ycm_key_list_select_completion=['<c-n>']
-    let g:ycm_key_list_select_completion = ['<Down>']
-    "let g:ycm_key_list_previous_completion=['<c-p>']
-    let g:ycm_key_list_previous_completion = ['<Up>']
-    let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
-    let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
-    let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
-    let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
-    let g:ycm_collect_identifiers_from_tags_files = 1
-    " 开启语法关键字补全
-    let g:ycm_seed_identifiers_with_syntax=1
-
-    "let g:ycm_seed_identifiers_with_syntax=1   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
-
-    " 跳转到定义处, 分屏打开
-    let g:ycm_goto_buffer_command = 'horizontal-split'
-    " nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
-    nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-    nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
-
-    " 引入，可以补全系统，以及python的第三方包 针对新老版本YCM做了兼容
-    " old version
-    if !empty(glob("~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"))
-        let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"
-    endif
-    " new version
-    if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
-        let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
-    endif
-
-    " 直接触发自动补全 insert模式下
-    " let g:ycm_key_invoke_completion = '<C-Space>'
-    " 黑名单,不启用
-    let g:ycm_filetype_blacklist = {
-        \ 'tagbar' : 1,
-        \ 'gitcommit' : 1,
-        \}
-" }}}
-
 
 " ultisnips {{{
     let g:UltiSnipsExpandTrigger       = "<tab>"
@@ -480,10 +526,10 @@ call plug#end()
 " easymotion {{{
     let g:EasyMotion_smartcase = 1
     "let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
-    map <Leader><leader>h <Plug>(easymotion-linebackward)
-    map <Leader><Leader>j <Plug>(easymotion-j)
-    map <Leader><Leader>k <Plug>(easymotion-k)
-    map <Leader><leader>l <Plug>(easymotion-lineforward)
+    map <Leader>h <Plug>(easymotion-linebackward)
+    map <Leader>j <Plug>(easymotion-j)
+    map <Leader>k <Plug>(easymotion-k)
+    map <Leader>l <Plug>(easymotion-lineforward)
     " 重复上一次操作, 类似repeat插件, 很强大
     map <Leader><leader>. <Plug>(easymotion-repeat)
 " }}}
@@ -529,9 +575,9 @@ call plug#end()
 " ctrlp ctrlpfunky{{{
     let g:ctrlp_map = '<leader>p'
     let g:ctrlp_cmd = 'CtrlP'
-    map <leader>f :CtrlPMRU<CR>
+    map <leader>b :CtrlPMRU<CR>
     let g:ctrlp_custom_ignore = {
-        \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+        \ 'dir':  '\v[\/]\.?(git|hg|svn|rvm|node_modules)$',
         \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
         \ }
     let g:ctrlp_working_path_mode=0
@@ -597,14 +643,14 @@ call plug#end()
 " gitgutter {{{
     " 同git diff,实时展示文件中修改的行
     " 只是不喜欢除了行号多一列, 默认关闭,gs时打开
-    let g:gitgutter_map_keys = 0
-    let g:gitgutter_enabled = 0
-    let g:gitgutter_highlight_lines = 1
-    nnoremap <leader>gs :GitGutterToggle<CR>
+    "let g:gitgutter_map_keys = 0
+    "let g:gitgutter_enabled = 0
+    "let g:gitgutter_highlight_lines = 1
+    "nnoremap <leader>gs :GitGutterToggle<CR>
 " }}}
 
 " gundo {{{
-    noremap <leader>h :GundoToggle<CR>
+    noremap <leader>g :GundoToggle<CR>
 " }}}
 
 " ################### 显示增强 ###################
@@ -656,6 +702,16 @@ call plug#end()
 
 
 " ################### 显示增强-主题 ###################"
+" 
+" typescript
+
+let g:typescript_indent_disable = 1
+let g:typescript_opfirst='\%([<>=,?^%|*/&]\|\([-:+]\)\1\@!\|!=\|in\%(stanceof\)\=\>\)'
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = ''
+ autocmd FileType typescript :set makeprg=tsc
+ autocmd QuickFixCmdPost [^l]* nested cwindow
+ autocmd QuickFixCmdPost    l* nested lwindow
 
 " solarized {{{
     let g:solarized_termtrans=1
