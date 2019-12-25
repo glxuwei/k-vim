@@ -132,6 +132,7 @@ set magic
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
+set dictionary=~/Profession/util/k-vim/keywords.dict
 
 "==========================================
 " Display Settings 展示/排版等界面格式设置
@@ -726,6 +727,8 @@ let g:ackhighlight = 1
 ":map <F5> :! g++ % && ./a.out <CR>
 ":imap <F5> <c-o><F5>
 
+vmap "+y :w !pbcopy<CR><CR>
+nmap "+p :r !pbpaste<CR><CR>
 nnoremap yf :let @f=expand("%:t")<CR>
 nnoremap yp :let @p=expand("%:p")<CR>
 nnoremap <leader>g :<C-u>call gitblame#echo()<CR>
