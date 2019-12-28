@@ -39,7 +39,10 @@ Plug 'zivyangll/git-blame.vim'
 
 Plug 'rafi/awesome-vim-colorschemes'
 
+Plug 'ervandew/supertab'
 Plug 'wsdjeg/FlyGrep.vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 Plug 'mileszs/ack.vim'
 let g:ackprg = 'ag --nogroup --nocolor --column'
