@@ -676,9 +676,10 @@ endif
 "let g:rehash256 = 1
 "colorscheme BusyBee
 "colorscheme desert
-"colorscheme jellybeans
+colorscheme jellybeans
+"colorscheme corporation
 
-colorscheme gruvbox
+"colorscheme gruvbox
 
 " 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr

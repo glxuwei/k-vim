@@ -28,6 +28,9 @@ endif
 call plug#begin('~/.vim/bundle')
 
 " 移动光标到插件名上, 使用'#'快速跳转到每个插件的配置处
+" jsx
+
+" Plugin 'mxw/vim-jsx'
 
 " syntastic
 Plug 'scrooloose/syntastic'
@@ -60,6 +63,10 @@ let g:user_emmet_expandabbr_key = '<leader><leader>'
 Plug 'Raimondi/delimitMate'
 " 自动补全html/xml标签
 Plug 'docunext/closetag.vim', { 'for': ['html', 'xml'] }
+
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
+
 
 " quick edit
 " 快速注释
