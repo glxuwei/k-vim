@@ -37,4 +37,17 @@ export default class ${1:} extends PView {
 }
 endsnippet
 
+# 展开 console.log
+snippet "([^\s]\w+)\.log" "console.log(postfix)" r
+console.log(`!p snip.rv = match.group(1)`)$0
+endsnippet
+# 当前行转换成大写
+snippet "([^\s].*)\.upper" "Uppercase(postfix)" r
+`!p snip.rv = match.group(1).upper()`$0
+endsnippet
+# 上一个单词转换成小写
+snippet "([^\s]\w+)\.lower" "Lowercase(postfix)" r
+`!p snip.rv = match.group(1).lower()`$0
+endsnippet
+
 
