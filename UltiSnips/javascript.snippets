@@ -1,0 +1,40 @@
+
+# javascript snippets
+
+snippet mo "mobx" b
+import { observable, action, computed } from 'mobx';
+endsnippet
+
+snippet mr "mobx-react" b
+import { observer } from 'mobx-react';
+endsnippet
+
+snippet react "react" b
+import React from 'react';
+endsnippet
+
+snippet rn "react" b
+import { View, Text, StyleSheet } from 'react-native';
+endsnippet
+
+snippet cc "class component" b
+export default class ${1:} extends React.Component {
+}
+endsnippet
+
+snippet rnplus "" b
+import RNPlus, { PView } from 'rnplus'
+endsnippet
+
+snippet cp "" b
+export default class ${1:} extends PView {
+	bindEvents = {
+		actived() {
+		},
+		deactived() {
+		}
+	}
+}
+endsnippet
+
+
