@@ -1,7 +1,7 @@
 
 # javascript snippets
 
-snippet mo "mobx" b
+snippet m "mobx" b
 import { observable, action, computed } from 'mobx';
 endsnippet
 
@@ -9,7 +9,7 @@ snippet mr "mobx-react" b
 import { observer } from 'mobx-react';
 endsnippet
 
-snippet react "react" b
+snippet r "react" b
 import React from 'react';
 endsnippet
 
@@ -17,8 +17,32 @@ snippet rn "react" b
 import { View, Text, StyleSheet } from 'react-native';
 endsnippet
 
+
+snippet c "class" b
+export default class ${1:} {
+}
+
 snippet cc "class component" b
 export default class ${1:} extends React.Component {
+}
+endsnippet
+
+snippet dm "" b
+componentDidMount() {
+}
+endsnippet
+
+snippet um "" b
+componentWillUnMount() {
+}
+endsnippet
+
+snippet be "" b
+bindEvents = {
+	actived(param) {
+	},
+	deactived() {
+	},
 }
 endsnippet
 
@@ -37,10 +61,15 @@ export default class ${1:} extends PView {
 }
 endsnippet
 
-# 展开 console.log
-snippet "([^\s]\w+)\.log" "console.log(postfix)" r
-console.log(`!p snip.rv = match.group(1)`)$0
+
+snippet l "" b
+console.log(${1:})
 endsnippet
+
+# 展开 console.log
+#snippet "([^\s]\w+)\.log" "console.log(postfix)" r
+#console.log(`!p snip.rv = match.group(1)`)$0
+#endsnippet
 # 当前行转换成大写
 snippet "([^\s].*)\.upper" "Uppercase(postfix)" r
 `!p snip.rv = match.group(1).upper()`$0
