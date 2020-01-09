@@ -670,13 +670,13 @@ endif
 "set background=dark
 "set t_Co=256
 
-"colorscheme solarized
+colorscheme solarized
 "colorscheme molokai
 "let g:molokai_original = 1
 "let g:rehash256 = 1
 "colorscheme BusyBee
 "colorscheme desert
-colorscheme jellybeans
+"colorscheme jellybeans
 "colorscheme corporation
 
 "colorscheme gruvbox
