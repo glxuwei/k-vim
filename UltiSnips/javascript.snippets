@@ -46,6 +46,11 @@ bindEvents = {
 }
 endsnippet
 
+snippet wr "" b
+componentWillReceiveProps(nextProps) {
+}
+endsnippet
+
 snippet rnplus "" b
 import RNPlus, { PView } from 'rnplus'
 endsnippet
@@ -61,8 +66,11 @@ export default class ${1:} extends PView {
 }
 endsnippet
 
+snippet st "" b
+style={styles.${1:}}
+endsnippet
 
-snippet l "" b
+snippet x "" b
 console.log(${1:})
 endsnippet
 
@@ -74,9 +82,3 @@ endsnippet
 snippet "([^\s].*)\.upper" "Uppercase(postfix)" r
 `!p snip.rv = match.group(1).upper()`$0
 endsnippet
-# 上一个单词转换成小写
-snippet "([^\s]\w+)\.lower" "Lowercase(postfix)" r
-`!p snip.rv = match.group(1).lower()`$0
-endsnippet
-
-
