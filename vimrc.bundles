@@ -180,7 +180,7 @@ Plug 'scrooloose/nerdtree'          " File tree manager
 Plug 'jistr/vim-nerdtree-tabs'      " enhance nerdtree's tabs
 "Plug 'ryanoasis/vim-devicons'       " add beautiful icons besides files
 Plug 'Xuyuanp/nerdtree-git-plugin'  " display git status within Nerdtree
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " enhance devicons
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " enhance devicons
 
 " ctrlspace
 Plug 'vim-ctrlspace/vim-ctrlspace'
