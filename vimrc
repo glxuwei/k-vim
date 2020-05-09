@@ -670,7 +670,7 @@ endif
 "set background=dark
 "set t_Co=256
 
-colorscheme solarized
+"colorscheme solarized
 "colorscheme molokai
 "let g:molokai_original = 1
 "let g:rehash256 = 1
@@ -679,7 +679,7 @@ colorscheme solarized
 "colorscheme jellybeans
 "colorscheme corporation
 
-"colorscheme gruvbox
+colorscheme gruvbox
 
 " 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
