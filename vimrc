@@ -733,6 +733,9 @@ nmap "+p :r !pbpaste<CR><CR>
 nnoremap yf :let @f=expand("%:t")<CR>
 nnoremap yp :let @p=expand("%:p")<CR>
 nnoremap <leader>g :<C-u>call gitblame#echo()<CR>
+nnoremap <leader>d :YcmCompleter GoToDefinitionElseDeclaration<cr>
+
+
 
 
 

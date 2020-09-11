@@ -30,7 +30,6 @@ call plug#begin('~/.vim/bundle')
 " 移动光标到插件名上, 使用'#'快速跳转到每个插件的配置处
 " jsx
 
-" Plugin 'mxw/vim-jsx'
 
 " syntastic
 Plug 'scrooloose/syntastic'
@@ -50,7 +49,8 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 Plug '~/.fzf'
 
 "emmet
-Plug 'https://github.com/mattn/emmet-vim.git'
+Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript.jsx'] }
+
 let g:user_emmet_expandabbr_key = '<leader><leader>'
 
 " Group dependencies, vim-snippets depends on ultisnips
@@ -69,10 +69,12 @@ augroup END
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
 " 自动补全html/xml标签
-Plug 'docunext/closetag.vim', { 'for': ['html', 'xml'] }
+Plug 'docunext/closetag.vim', { 'for': ['html', 'xml', 'javascript.jsx'] }
 
-Plug 'yuezk/vim-js'
-Plug 'maxmellon/vim-jsx-pretty'
+
+Plug 'mxw/vim-jsx', { 'for': 'javascript.jsx' }
+Plug 'yuezk/vim-js', { 'for': 'javascript.js' }
+Plug 'maxmellon/vim-jsx-pretty', { 'for': 'javascript.jsx' }
 
 " quick edit
 " 快速注释
@@ -176,11 +178,11 @@ Plug 'nanotech/jellybeans.vim'
 
 
 "<NERDTREE>
-Plug 'scrooloose/nerdtree'          " File tree manager
-Plug 'jistr/vim-nerdtree-tabs'      " enhance nerdtree's tabs
-Plug 'ryanoasis/vim-devicons'       " add beautiful icons besides files
-Plug 'Xuyuanp/nerdtree-git-plugin'  " display git status within Nerdtree
-"Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " enhance devicons
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
+Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }      " enhance nerdtree's tabs
+"Plug 'ryanoasis/vim-devicons', { 'on':  'NERDTreeTabsToggle' }       " add beautiful icons besides files
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeTabsToggle' }  " display git status within Nerdtree
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on':  'NERDTreeTabsToggle' } " enhance devicons
 
 " ctrlspace
 Plug 'vim-ctrlspace/vim-ctrlspace'
@@ -197,13 +199,13 @@ Plug 'kana/vim-textobj-entire'
 " 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
 Plug 'kana/vim-textobj-indent'
 
-Plug 'leafgarland/typescript-vim'
+Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
 
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
+Plug 'junegunn/limelight.vim', { 'on': 'Goyo' }
 
 "limelight
-"<Leader>d触发limelight功能
+"<Leader>m触发limelight功能
 "g:goyo_margin_top (default: 4)
 "g:goyo_margin_bottom (default: 4)
 "g:goyo_linenr (default: 0)
@@ -230,8 +232,8 @@ Plug 'junegunn/limelight.vim'
 "autocmd! User GoyoEnter call <SID>goyo_enter()
 "autocmd! User GoyoLeave call <SID>goyo_leave()
 
-nmap <Leader>d :Goyo<CR>
-xmap <Leader>d :Goyo<CR>
+nmap <Leader>m :Goyo<CR>
+xmap <Leader>m :Goyo<CR>
 
 "进入goyo模式后自动触发limelight,退出后则关闭
 autocmd! User GoyoEnter Limelight
@@ -283,16 +285,16 @@ if count(g:bundle_groups, 'golang')
     " 1. vim a.go
     " 2. :GoInstallBinaries
     " vimgo  https://github.com/fatih/vim-go
-    Plug 'fatih/vim-go', {'for': 'go'}
+    "Plug 'fatih/vim-go', {'for': 'go'}
 endif
 
 
 if count(g:bundle_groups, 'python')
     " for python.vim syntax highlight
     " pythonsyntax
-    Plug 'hdima/python-syntax'
-    Plug 'hynek/vim-python-pep8-indent'
-    Plug 'Glench/Vim-Jinja2-Syntax'
+    "Plug 'hdima/python-syntax'
+    "Plug 'hynek/vim-python-pep8-indent'
+    "Plug 'Glench/Vim-Jinja2-Syntax'
 
     " isort  https://github.com/timothycrosley/isort#readme + https://github.com/fisadev/vim-isort#installation
     " pip install isort
@@ -307,15 +309,15 @@ if count(g:bundle_groups, 'php')
     Plug 'spf13/PIV'
 endif
 
-if count(g:bundle_groups, 'ruby')
-    Plug 'vim-ruby/vim-ruby'
-    Plug 'tpope/vim-rails'
+" if count(g:bundle_groups, 'ruby')
+    " Plug 'vim-ruby/vim-ruby'
+    " Plug 'tpope/vim-rails'
     " dir / dar
-    Plug 'nelstrom/vim-textobj-rubyblock'
+    " Plug 'nelstrom/vim-textobj-rubyblock'
 
     " 有bug, 和当前有冲突, 尚未解决, 不要打开 => TODO: solve this problem
     " Plug 'tpope/vim-endwise'
-endif
+" endif
 
 if count(g:bundle_groups, 'javascript')
     " javascript
@@ -809,7 +811,7 @@ let g:typescript_compiler_options = ''
 
 
     " nerdtreetabs
-    map <Leader>n <plug>NERDTreeTabsToggle<CR>
+    map <Leader>n :NERDTreeTabsToggle<CR>
     " 关闭同步
     " let g:nerdtree_tabs_synchronize_view=0
     " let g:nerdtree_tabs_synchronize_focus=0
