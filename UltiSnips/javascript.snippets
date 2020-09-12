@@ -1,6 +1,12 @@
 
 # javascript snippets
+snippet c "class" b
+export default class ${1:} {
+}
+endsnippet
 
+
+#mobx
 snippet m "mobx" b
 import { observable, action, computed } from 'mobx';
 endsnippet
@@ -9,49 +15,83 @@ snippet mr "mobx-react" b
 import { observer } from 'mobx-react';
 endsnippet
 
+snippet ma "mobx-react" b
+@action ${1:}
+endsnippet
+
+snippet mab "mobx-react" b
+@action.bound ${1:}
+endsnippet
+
+snippet mo "mobx-react" b
+@observable ${1:}
+endsnippet
+
+snippet mor "mobx-react" b
+@observable.ref ${1:}
+endsnippet
+
+#react
 snippet r "react" b
 import React from 'react';
 endsnippet
 
 snippet rn "react" b
-import { View, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 endsnippet
 
+snippet ic "react" b
+import Icon from 'icon';
+endsnippet
 
-snippet c "class" b
-export default class ${1:} {
-}
+snippet rcs "react" b
+const styles = StyleSheet.create({
+	${1:}
+});
+endsnippet
 
-snippet cc "class component" b
+snippet to "react" b
+<TouchableOpacity>${1:}</TouchableOpacity>
+endsnippet
+
+snippet vw "react" b
+<View>${1:}</View>
+endsnippet
+
+snippet cc "class" b
 export default class ${1:} extends React.Component {
 }
 endsnippet
 
 snippet dm "" b
 componentDidMount() {
+  ${1:}
 }
 endsnippet
 
 snippet um "" b
 componentWillUnMount() {
+  ${1:}
+}
+endsnippet
+
+snippet wr "" b
+componentWillReceiveProps(nextProps) {
+  ${1:}
 }
 endsnippet
 
 snippet be "" b
 bindEvents = {
 	actived(param) {
+		${1:}
 	},
 	deactived() {
 	},
 }
 endsnippet
 
-snippet wr "" b
-componentWillReceiveProps(nextProps) {
-}
-endsnippet
-
-snippet rnplus "" b
+snippet rp "" b
 import RNPlus, { PView } from 'rnplus'
 endsnippet
 
@@ -70,15 +110,49 @@ snippet st "" b
 style={styles.${1:}}
 endsnippet
 
-snippet x "" b
-console.log(${1:})
+snippet $ "" b
+${${1:}}
+endsnippet
+
+snippet "([^\s]\w+)\.obj" "object" r
+const `!p snip.rv = match.group(1)`$0 = {
+	${1:}
+}
+endsnippet
+
+snippet "([^\s]\w+)\.([^.]*)\.fn" "function" r
+function `!p snip.rv = match.group(1)`$0 (`!p snip.rv = match.group(2)`$0) {
+	${1:}
+}
+endsnippet
+
+snippet "([^\s]\w+)\.([^.]*)\.fa" "arrow fn" r
+const `!p snip.rv = match.group(1)`$0 = (`!p snip.rv = match.group(2)`$0) => {
+	${1:}
+}
+endsnippet
+
+snippet "([^\s]\w+)\.([^.]*)\.me" "method" r
+`!p snip.rv = match.group(1)`$0 (`!p snip.rv = match.group(2)`$0) {
+	${1:}
+}
+endsnippet
+
+snippet l "" b
+console.log(${1:});
 endsnippet
 
 # 展开 console.log
-#snippet "([^\s]\w+)\.log" "console.log(postfix)" r
-#console.log(`!p snip.rv = match.group(1)`)$0
-#endsnippet
+# snippet "([^\s]\w+)\.log" "console.log(postfix)" r
+snippet "([^\s]+)\.l" "console.log(postfix)" r
+console.log(`!p snip.rv = match.group(1)`)$0
+endsnippet
+
 # 当前行转换成大写
-snippet "([^\s].*)\.upper" "Uppercase(postfix)" r
+snippet "([^\s].*)\.upp" "Uppercase(postfix)" r
 `!p snip.rv = match.group(1).upper()`$0
+endsnippet
+
+snippet "([^\s].*)\.low" "LowerCase(postfix)" r
+`!p snip.rv = match.group(1).lower()`$0
 endsnippet

@@ -696,14 +696,7 @@ highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 
-iabbrev l console.log
-iabbrev ir import React from 'react';
-iabbrev irnp import RNPlus from 'rnplus';
-iabbrev ii import Icon from 'icon';
-iabbrev ecp export default class extends PView {};
-iabbrev ecc export default class extends Component {};
-iabbrev vw <View></View>
-iabbrev to <TouchableOpacity></TouchableOpacity>
+"iabbrev l console.log
 
 nnoremap <leader>f :FlyGrep<cr>
 map <leader>s :Ack!<space>
