@@ -698,26 +698,6 @@ highlight SpellLocal term=underline cterm=underline
 
 "iabbrev l console.log
 
-nnoremap <leader>f :FlyGrep<cr>
-map <leader>s :Ack!<space>
-"nmap <leader>ss :Ack!<space>-i<space>
-if executable('ag')
-  let g:ackprg = 'ag --nogroup --nocolor --column'
-endif
-"if executable('rg')
-"  let g:ackprg = 'rg --vimgrep'
-"endif
-"高亮搜索关键词
-let g:ackhighlight = 1
-"修改快速预览窗口高度为15
-"let g:ack_qhandler = "botright copen 15"
-"在QuickFix窗口使用快捷键以后，自动关闭QuickFix窗口
-"let g:ack_autoclose = 1
-"使用ack的空白搜索，即不添加任何参数时对光标下的单词进行搜索，默认值为1，表示开启，置0以后使用空白搜索将返回错误信息
-"let g:ack_use_cword_for_empty_search = 1
-"部分功能受限，但对于大项目搜索速度较慢时可以尝试开启
-"let g:ack_use_dispatch = 1
-
 ":map <F5> :! g++ % && ./a.out <CR>
 ":imap <F5> <c-o><F5>
 
