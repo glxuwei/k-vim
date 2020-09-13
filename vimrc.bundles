@@ -38,13 +38,31 @@ Plug 'zivyangll/git-blame.vim'
 
 Plug 'rafi/awesome-vim-colorschemes'
 
-Plug 'ervandew/supertab'
-Plug 'wsdjeg/FlyGrep.vim'
+" Plug 'ervandew/supertab'
+" Plug 'wsdjeg/FlyGrep.vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 Plug 'mileszs/ack.vim'
-let g:ackprg = 'ag --nogroup --nocolor --column'
+map <leader>ack :Ack!<space>
+" nmap <leader>ack :Ack!<space>-i<space>
+if executable('ag')
+  let g:ackprg = 'ag --nogroup --nocolor --column'
+endif
+"if executable('rg')
+"  let g:ackprg = 'rg --vimgrep'
+"endif
+"高亮搜索关键词
+let g:ackhighlight = 1
+"修改快速预览窗口高度为15
+"let g:ack_qhandler = "botright copen 15"
+"在QuickFix窗口使用快捷键以后，自动关闭QuickFix窗口
+"let g:ack_autoclose = 1
+"使用ack的空白搜索，即不添加任何参数时对光标下的单词进行搜索，默认值为1，表示开启，置0以后使用空白搜索将返回错误信息
+"let g:ack_use_cword_for_empty_search = 1
+"部分功能受限，但对于大项目搜索速度较慢时可以尝试开启
+"let g:ack_use_dispatch = 1
+" let g:ackprg = 'ag --nogroup --nocolor --column'
 
 Plug '~/.fzf'
 
@@ -73,6 +91,7 @@ Plug 'docunext/closetag.vim', { 'for': ['html', 'xml', 'javascript.jsx'] }
 
 
 Plug 'mxw/vim-jsx', { 'for': 'javascript.jsx' }
+let g:jsx_ext_required = 0
 Plug 'yuezk/vim-js', { 'for': 'javascript.js' }
 Plug 'maxmellon/vim-jsx-pretty', { 'for': 'javascript.jsx' }
 
@@ -81,8 +100,7 @@ Plug 'maxmellon/vim-jsx-pretty', { 'for': 'javascript.jsx' }
 Plug 'scrooloose/nerdcommenter'
 
 " vim es6
-Plug 'isRuslan/vim-es6'
-
+Plug 'isRuslan/vim-es6', { 'for': ['javascript.js', 'javascript.jsx'] }
 
 " 快速加入修改环绕字符
 " for repeat -> enhance surround.vim, . to repeat command
@@ -128,7 +146,8 @@ Plug 'terryma/vim-multiple-cursors'
 " 文件搜索
 " change to https://github.com/ctrlpvim/ctrlp.vim
 " ctrlp ctrlpfunky
-Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
+" Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
+Plug 'ctrlpvim/ctrlp.vim'
 " ctrlsf
 " 类似sublimetext的搜索
 " In CtrlSF window:
@@ -232,8 +251,8 @@ Plug 'junegunn/limelight.vim', { 'on': 'Goyo' }
 "autocmd! User GoyoEnter call <SID>goyo_enter()
 "autocmd! User GoyoLeave call <SID>goyo_leave()
 
-nmap <Leader>m :Goyo<CR>
-xmap <Leader>m :Goyo<CR>
+nmap <Leader>go :Goyo<CR>
+xmap <Leader>go :Goyo<CR>
 
 "进入goyo模式后自动触发limelight,退出后则关闭
 autocmd! User GoyoEnter Limelight
@@ -265,11 +284,11 @@ let g:limelight_priority = -1
 
 
 
-if count(g:bundle_groups, 'tmux')
+" if count(g:bundle_groups, 'tmux')
     " tmux
     " For tmux navigator Ctrl-hjkl
-    Plug 'christoomey/vim-tmux-navigator'
-endif
+    " Plug 'christoomey/vim-tmux-navigator'
+" endif
 
 if count(g:bundle_groups, 'markdown')
     Plug 'plasticboy/vim-markdown', {'for': 'md'}
@@ -281,33 +300,33 @@ if count(g:bundle_groups, 'markdown')
     " map <F12> :InstantMarkdownPreview<CR>
 endif
 
-if count(g:bundle_groups, 'golang')
+" if count(g:bundle_groups, 'golang')
     " 1. vim a.go
     " 2. :GoInstallBinaries
     " vimgo  https://github.com/fatih/vim-go
-    "Plug 'fatih/vim-go', {'for': 'go'}
-endif
+    " Plug 'fatih/vim-go', {'for': 'go'}
+" endif
 
 
-if count(g:bundle_groups, 'python')
+" if count(g:bundle_groups, 'python')
     " for python.vim syntax highlight
     " pythonsyntax
-    "Plug 'hdima/python-syntax'
-    "Plug 'hynek/vim-python-pep8-indent'
-    "Plug 'Glench/Vim-Jinja2-Syntax'
+    " Plug 'hdima/python-syntax'
+    " Plug 'hynek/vim-python-pep8-indent'
+    " Plug 'Glench/Vim-Jinja2-Syntax'
 
     " isort  https://github.com/timothycrosley/isort#readme + https://github.com/fisadev/vim-isort#installation
     " pip install isort
-    Plug 'fisadev/vim-isort'
+    " Plug 'fisadev/vim-isort'
     " Shift-V 上下选中, ctrl + i 规范化
-    let g:vim_isort_map = '<C-i>'
-endif
+    " let g:vim_isort_map = '<C-i>'
+" endif
 
-if count(g:bundle_groups, 'php')
+" if count(g:bundle_groups, 'php')
     " piv
     " shift-v可以查看函数手册 / leader-pd生成注释
-    Plug 'spf13/PIV'
-endif
+    " Plug 'spf13/PIV'
+" endif
 
 " if count(g:bundle_groups, 'ruby')
     " Plug 'vim-ruby/vim-ruby'
@@ -336,9 +355,9 @@ if count(g:bundle_groups, 'javascript')
 endif
 
 
-if count(g:bundle_groups, 'coffeescript')
-    Plug 'kchmck/vim-coffee-script'
-endif
+" if count(g:bundle_groups, 'coffeescript')
+    " Plug 'kchmck/vim-coffee-script'
+" endif
 
 " if count(g:bundle_groups, 'shell')
     " Plug 'Shougo/vimshell.vim'
@@ -493,8 +512,8 @@ call plug#end()
     " 跳转到定义处, 分屏打开
     let g:ycm_goto_buffer_command = 'horizontal-split'
     " nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
-    nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-    nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
+    nnoremap <leader>jtd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+    nnoremap <leader>gtd :YcmCompleter GoToDeclaration<CR>
 
     " 引入，可以补全系统，以及python的第三方包 针对新老版本YCM做了兼容
     " old version
@@ -554,6 +573,9 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 let g:UltiSnipsExpandTrigger="<c-i>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+
+"nnoremap <leader>f :FlyGrep<cr>
 
 
 " delimitMate {{{
@@ -646,7 +668,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 " ctrlp ctrlpfunky{{{
     let g:ctrlp_map = '<leader>p'
     let g:ctrlp_cmd = 'CtrlP'
-    map <leader>b :CtrlPMRU<CR>
+    map <leader>f :CtrlPMRU<CR>
     let g:ctrlp_custom_ignore = {
         \ 'dir':  '\v[\/]\.?(git|hg|svn|rvm|node_modules)$',
         \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
@@ -667,17 +689,21 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
     " ctrlpfunky
     " ctrlp插件1 - 不用ctag进行函数快速跳转
-    nnoremap <Leader>fu :CtrlPFunky<Cr>
+    " nnoremap <Leader>fu :CtrlPFunky<Cr>
     " narrow the list down with a word under cursor
-    nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-    let g:ctrlp_funky_syntax_highlight = 1
+    " nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+    " let g:ctrlp_funky_syntax_highlight = 1
 
-    let g:ctrlp_extensions = ['funky']
+    " let g:ctrlp_extensions = ['funky']
 " }}}
 
 
 " ctrlsf {{{
-    nmap \ <Plug>CtrlSFCwordPath<CR>
+    " nmap \ <Plug>CtrlSFCwordPath<CR>
+    nnoremap <Leader>s :CtrlSF<Space>
+    " map <s-j> <c-j>p
+    " map <s-k> <c-k>p
+    let g:ctrlsf_default_view_mode = 'compact'
     " let g:ctrlsf_position = 'below'
     " let g:ctrlsf_winsize = '30%'
     let g:ctrlsf_auto_close = 0
@@ -701,14 +727,13 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " fugitive {{{
     " :Gdiff  :Gstatus :Gvsplit
-    nnoremap <leader>ge :Gdiff<CR>
-    " not ready to open
-    " <leader>gb maps to :Gblame<CR>
-    " <leader>gs maps to :Gstatus<CR>
-    " <leader>gd maps to :Gdiff<CR>  和现有冲突
-    " <leader>gl maps to :Glog<CR>
-    " <leader>gc maps to :Gcommit<CR>
-    " <leader>gp maps to :Git push<CR>
+    " nnoremap <leader>ge :Gdiff<CR>
+    nnoremap <leader>gb :Gblame<CR>
+    " nnoremap <leader>gs :Gstatus<CR>
+    " nnoremap <leader>gd :Gdiff<CR>
+    " nnoremap <leader>gl :Glog<CR>
+    nnoremap <leader>gc :Gcommit<CR>
+    nnoremap <leader>gp :Git push<CR>
 " }}}
 
 " gitgutter {{{
