@@ -4,5 +4,6 @@ bundle
 *.bk
 configs
 myconfig.sh
+vim.log
 init.vim
 .DS_Store
